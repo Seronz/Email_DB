@@ -1,4 +1,4 @@
-const UserModel = require("../models/users");
+const { UserModel } = require("../models/users");
 
 const getAllUsers = async (req, res) => {
   try {
@@ -15,12 +15,20 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-const createUser = (req, res) => {
-  console.log(req.body);
-  res.json({
-    message: "create user success",
-    data: req.body,
-  });
+const addNewUser = async (req, res) => {
+  const { body } = req.body;
+  try {
+    await UserModel.addNewUsers(body.name);
+    res.json({
+      message: "Add user success",
+      data: req.body,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: `Couldn't add user`,
+      ServerMessage: `${err.message}`,
+    });
+  }
 };
 
 const updateData = (req, res) => {
@@ -34,4 +42,9 @@ const deleteData = (req, res) => {
   const { id } = req.params;
   res.json({ message: "berhasil menghapus data", data: req.body });
 };
-module.exports = { getAllUsers, createUser, updateData, deleteData };
+module.exports = {
+  getAllUsers,
+  addNewUser,
+  updateData,
+  deleteData,
+};
