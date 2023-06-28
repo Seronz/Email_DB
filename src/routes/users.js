@@ -1,8 +1,13 @@
 const express = require("express");
-const { UserController } = require("../controller/users");
+const {
+  getAllUser,
+  updateData,
+  deleteData,
+  addNewUser,
+} = require("../controller/users");
 const router = express.Router();
 
-router.get("/", UserController.getAllUsers);
+router.get("/", getAllUser);
 
 router.post("/", addNewUser);
 

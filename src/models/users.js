@@ -12,4 +12,4 @@ const addNewUsers = (body) => {
   return dbPool.execute(SQLQuery);
 };
 
-module.exports = { getAllUsers };
+module.exports = { getAllUsers, addNewUsers };

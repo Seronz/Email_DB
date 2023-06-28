@@ -1,8 +1,8 @@
-const { UserModel } = require("../models/users");
+const { getAllUsers, addNewUsers } = require("../models/users");
 
-const getAllUsers = async (req, res) => {
+const getAllUser = async (req, res) => {
   try {
-    const [data] = await UserModel.getAllUsers();
+    const [data] = await getAllUsers();
     res.json({
       message: "Get all user success",
       data: data,
@@ -16,12 +16,12 @@ const getAllUsers = async (req, res) => {
 };
 
 const addNewUser = async (req, res) => {
-  const { body } = req.body;
+  const { body } = req;
   try {
-    await UserModel.addNewUsers(body.name);
+    await addNewUsers(body);
     res.json({
       message: "Add user success",
-      data: req.body,
+      data: body,
     });
   } catch (err) {
     res.status(500).json({
@@ -43,7 +43,7 @@ const deleteData = (req, res) => {
   res.json({ message: "berhasil menghapus data", data: req.body });
 };
 module.exports = {
-  getAllUsers,
+  getAllUser,
   addNewUser,
   updateData,
   deleteData,
